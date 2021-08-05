@@ -10,5 +10,5 @@ when insurance claims data are aggregated and structured in development triangle
 The 'requirement.yml' file contains the Python packages used to train the network. 
 
 # References
-* Chaoubi, I., Besse, C. Cossette, H. & Côté, M.P. (2021). Micro-level Reserving for General Insurance Claims using a Long Short-Term Memory Network.
+* Chaoubi, I., Besse, C. Cossette, H. & Côté, M-P. (2021). Micro-level Reserving for General Insurance Claims using a Long Short-Term Memory Network.
 * Gabrielli, A., & V Wüthrich, M. (2018). An individual claims history simulation machine. Risks, 6(2), 29.
