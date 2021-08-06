@@ -1,5 +1,5 @@
-# Object file
 *.ipynb_checkpoints
 *.xml
 *.iml
-./idea/*
+./.idea
+./.ipynb_checkpoints
