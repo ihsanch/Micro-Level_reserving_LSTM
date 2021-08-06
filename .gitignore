@@ -1,5 +1,0 @@
-*.ipynb_checkpoints
-*.xml
-*.iml
-LSTM_model/.idea/*
-LSTM_model/.ipynb_checkpoints/*
