@@ -3,12 +3,13 @@
 ## Simulated data pre-processing 
 ## This code do not contain the data preliminary analysis
 
+
 # Packages ----------------------------------------------------------------
 library(data.table)
 library(readr)
 library(splitstackshape)
 library(plyr)
-library(ChainLadder)
+library(ChainLadder) 
 
 # Import data -------------------------------------------------------------------
 # set the appropriate directory
@@ -48,8 +49,6 @@ RNGversion("3.6.3")
 set.seed(20190317) #Set Seed so that same sample can be reproduced in future experiment
 sample.1 <- stratified(data_claims,c("AY","LoB","RepDel"),0.6)[,ClNr] #select 60% of claimants
 data_train <- data_claims[ClNr %in% sample.1, ] # get the training dataset with the claimant number from sample.1
-data_train[100,]
-data_train[2,]
 
 data.2<- data_claims[!(ClNr %in% sample.1), ] # 40% of remaining claimants
 sample.2 <- stratified(data.2,"AY",0.5)[,ClNr] # select 50% of claimants in data.2 equivalent to 20% of data_claims
@@ -74,7 +73,6 @@ write.table(data_train_brute, "./Simulated_Cashflow_train_brute_LSTM.csv", sep="
 write.table(data_valid_brute, "./Simulated_Cashflow_valid_brute_LSTM.csv", sep=";", row.names=FALSE)
 write.table(data_test_brute, "./Simulated_Cashflow_test_brute_LSTM.csv", sep=";", row.names=FALSE)
 
-
 # Coefficients CL (based on data_train) -------------------------------------------
 # Cumulative cash flows
 cum_CF <- ddply(data_train, .(AY), summarise, CF00=sum(Pay00),CF01=sum(Pay01),CF02=sum(Pay02),CF03=sum(Pay03),CF04=sum(Pay04),CF05=sum(Pay05),CF06=sum(Pay06),CF07=sum(Pay07),CF08=sum(Pay08),CF09=sum(Pay09),CF10=sum(Pay10),CF11=sum(Pay11))[,2:13]
@@ -92,11 +90,11 @@ coef_CL <- sapply(1:(n-1),function(i) sum(tri_dat[c(1:(n-i)),i+1])/sum(tri_dat[c
 ### Chain-ladder ratios for validation data 
 RR(summary_CL(data_valid,coef_CL))
 
-### Chain-ladder ratios for testion data 
+### Chain-ladder ratios for testing data 
 RR(summary_CL(data_test,coef_CL))
 
 # censored training dataset-----------------------------------------
-#Censored stochastic features at the evaluation date EY=2005
+#Censor stochastic features at the evaluation date EY=2005
 T1 <-Sys.time() 
 CLM_cens_train <- cens_id(data_train) #identify claims with development beyond 2005
 length(CLM_cens_train)/nrow(data_train) #percentage of claims with patterns to censored (masked)
@@ -104,7 +102,7 @@ data_train <- Mask_pattern(data_train,CLM_cens_train)
 difftime(Sys.time(), T1) 
 
 # censored validation dataset-----------------------------------------
-#Censored stochastic features at the evaluation date EY=2005
+#Censor stochastic features at the evaluation date EY=2005
 T1 <-Sys.time() 
 CLM_cens_valid <- cens_id(data_valid) #identify claims with development beyond 2005
 length(CLM_cens_valid)/nrow(data_valid) #percentage of claims with patterns to censored (masked)
@@ -112,7 +110,7 @@ data_valid <- Mask_pattern(data_valid,CLM_cens_valid)
 difftime(Sys.time(), T1) 
 
 # censored testing dataset-----------------------------------------
-#Censored stochastic features at the evaluation date EY=2005
+#Censor stochastic features at the evaluation date EY=2005
 T1 <-Sys.time() 
 CLM_cens_test <- cens_id(data_test) #identify claims with development beyond 2005
 length(CLM_cens_test)/nrow(data_test) #percentage of claims with patterns to censored (masked)
