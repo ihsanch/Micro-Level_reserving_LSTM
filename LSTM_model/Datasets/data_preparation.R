@@ -17,7 +17,7 @@ data_claims <- read_delim("Simulated_Cashflow_brute.csv", ";", escape_double = F
 data_claims <- as.data.table(data_claims)
 
 # Read the functions-------------------------------------------------------------------
-source("preparation_functions_LSTM.R")
+source("preparation_functions.R")
 
 # Data pre-processing -----------------------------------------------------
 EY <- 2005 #evaluation date
@@ -44,10 +44,12 @@ pay <- c(sapply(0:9, function(i) paste0('Pay0',i)),'Pay10','Pay11')
 for (i in 1:12) data_claims[,Ind_pay[i]:= as.numeric(get(pay[i])!=0)] # I_{k,j}=1 if Y_{k,j}!=0 and I_{k,j}= 0 if Y_{k,j}=0 
 
 # Data split --------------------------------------------------------------
+RNGversion("3.6.3")
 set.seed(20190317) #Set Seed so that same sample can be reproduced in future experiment
-
 sample.1 <- stratified(data_claims,c("AY","LoB","RepDel"),0.6)[,ClNr] #select 60% of claimants
 data_train <- data_claims[ClNr %in% sample.1, ] # get the training dataset with the claimant number from sample.1
+data_train[100,]
+data_train[2,]
 
 data.2<- data_claims[!(ClNr %in% sample.1), ] # 40% of remaining claimants
 sample.2 <- stratified(data.2,"AY",0.5)[,ClNr] # select 50% of claimants in data.2 equivalent to 20% of data_claims
