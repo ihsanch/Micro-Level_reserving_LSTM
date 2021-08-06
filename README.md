@@ -11,9 +11,9 @@ when insurance claims data are aggregated and structured in development triangle
 - Python work environment: the 'requirement.yml' file contains the Python packages used to train the network. 
 
 ## How to proceed?
-1- Based on the simulated data,  compile LSTM_model/Datasets/data_preparation.R to obtain the training, validation and testing datasets.
-2- To train the LSTM, use python file LSTM_model/Datasets/main.py.
-3- The notebook LSTM_model/Datasets/Results.ipynb provides reserve and ultimate ratios and some illustrations.
+1 - Based on the simulated data,  compile LSTM_model/Datasets/data_preparation.R to obtain the training, validation and testing datasets.
+2 - To train the LSTM, use python file LSTM_model/Datasets/main.py.
+3 - The notebook LSTM_model/Datasets/Results.ipynb provides reserve and ultimate ratios and some illustrations.
 
 # References
 * Chaoubi, I., Besse, C. Cossette, H. & Côté, M-P. (2021). Micro-level Reserving for General Insurance Claims using a Long Short-Term Memory Network.
